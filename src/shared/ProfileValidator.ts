@@ -90,6 +90,8 @@ export class ProfileValidator {
 				return profile.ioIntelligenceModelId
 			case "deepinfra":
 				return profile.deepInfraModelId
+			case "zenmux":
+				return profile.zenMuxModelId
 			case "human-relay":
 			case "fake-ai":
 			default:

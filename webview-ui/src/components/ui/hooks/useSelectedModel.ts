@@ -34,6 +34,7 @@ import {
 	isDynamicProvider,
 	getProviderDefaultModelId,
 	NATIVE_TOOL_DEFAULTS,
+	zenMuxDefaultModelInfo,
 } from "@roo-code/types"
 
 import type { ModelRecord, RouterModels } from "@roo/api"
@@ -205,6 +206,12 @@ function getSelectedModel({
 		case "baseten": {
 			const id = apiConfiguration.apiModelId ?? defaultModelId
 			const info = basetenModels[id as keyof typeof basetenModels]
+			return { id, info }
+		}
+		case "zenmux": {
+			const id = getValidatedModelId(apiConfiguration.zenMuxModelId, routerModels.zenmux, defaultModelId)
+			const routerInfo = routerModels.zenmux?.[id]
+			const info = routerInfo ? { ...NATIVE_TOOL_DEFAULTS, ...routerInfo } : zenMuxDefaultModelInfo
 			return { id, info }
 		}
 		case "bedrock": {

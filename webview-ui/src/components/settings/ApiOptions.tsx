@@ -38,6 +38,7 @@ import {
 	vercelAiGatewayDefaultModelId,
 	deepInfraDefaultModelId,
 	minimaxDefaultModelId,
+	zenMuxDefaultModelId,
 } from "@roo-code/types"
 
 import { vscode } from "@src/utils/vscode"
@@ -98,6 +99,7 @@ import {
 	VercelAiGateway,
 	DeepInfra,
 	MiniMax,
+	ZenMux,
 } from "./providers"
 
 import { MODELS_BY_PROVIDER, PROVIDERS } from "./constants"
@@ -240,7 +242,8 @@ const ApiOptions = ({
 			} else if (
 				selectedProvider === "litellm" ||
 				selectedProvider === "deepinfra" ||
-				selectedProvider === "roo"
+				selectedProvider === "roo" ||
+				selectedProvider === "zenmux"
 			) {
 				vscode.postMessage({ type: "requestRouterModels" })
 			}
@@ -372,6 +375,7 @@ const ApiOptions = ({
 				openai: { field: "openAiModelId" },
 				ollama: { field: "ollamaModelId" },
 				lmstudio: { field: "lmStudioModelId" },
+				zenmux: { field: "zenMuxModelId", default: zenMuxDefaultModelId },
 			}
 
 			const config = PROVIDER_MODEL_CONFIG[value]
@@ -714,6 +718,16 @@ const ApiOptions = ({
 
 			{selectedProvider === "sambanova" && (
 				<SambaNova apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
+			)}
+
+			{selectedProvider === "zenmux" && (
+				<ZenMux
+					apiConfiguration={apiConfiguration}
+					setApiConfigurationField={setApiConfigurationField}
+					organizationAllowList={organizationAllowList}
+					modelValidationError={modelValidationError}
+					simplifySettings={fromWelcomeView}
+				/>
 			)}
 
 			{selectedProvider === "zai" && (

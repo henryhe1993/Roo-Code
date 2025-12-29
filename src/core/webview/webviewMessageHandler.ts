@@ -808,6 +808,7 @@ export const webviewMessageHandler = async (
 						lmstudio: {},
 						roo: {},
 						chutes: {},
+						zenmux: {},
 					}
 
 			const safeGetModels = async (options: GetModelsOptions): Promise<ModelRecord> => {
@@ -857,6 +858,10 @@ export const webviewMessageHandler = async (
 				{
 					key: "chutes",
 					options: { provider: "chutes", apiKey: apiConfiguration.chutesApiKey },
+				},
+				{
+					key: "zenmux",
+					options: { provider: "zenmux" },
 				},
 			]
 

@@ -50,6 +50,7 @@ export const dynamicProviders = [
 	"unbound",
 	"roo",
 	"chutes",
+	"zenmux",
 ] as const
 
 export type DynamicProvider = (typeof dynamicProviders)[number]
@@ -384,6 +385,12 @@ const sambaNovaSchema = apiModelIdProviderModelSchema.extend({
 	sambaNovaApiKey: z.string().optional(),
 })
 
+const zenMuxSchema = baseProviderSettingsSchema.extend({
+	zenMuxApiKey: z.string().optional(),
+	zenMuxBaseUrl: z.string().optional(),
+	zenMuxModelId: z.string().optional(),
+})
+
 export const zaiApiLineSchema = z.enum(["international_coding", "china_coding", "international_api", "china_api"])
 
 export type ZaiApiLine = z.infer<typeof zaiApiLineSchema>
@@ -465,6 +472,7 @@ export const providerSettingsSchemaDiscriminated = z.discriminatedUnion("apiProv
 	qwenCodeSchema.merge(z.object({ apiProvider: z.literal("qwen-code") })),
 	rooSchema.merge(z.object({ apiProvider: z.literal("roo") })),
 	vercelAiGatewaySchema.merge(z.object({ apiProvider: z.literal("vercel-ai-gateway") })),
+	zenMuxSchema.merge(z.object({ apiProvider: z.literal("zenmux") })),
 	defaultSchema,
 ])
 
@@ -508,6 +516,7 @@ export const providerSettingsSchema = z.object({
 	...rooSchema.shape,
 	...vercelAiGatewaySchema.shape,
 	...codebaseIndexProviderSchema.shape,
+	...zenMuxSchema.shape,
 })
 
 export type ProviderSettings = z.infer<typeof providerSettingsSchema>
@@ -540,6 +549,7 @@ export const modelIdKeys = [
 	"ioIntelligenceModelId",
 	"vercelAiGatewayModelId",
 	"deepInfraModelId",
+	"zenMuxModelId",
 ] as const satisfies readonly (keyof ProviderSettings)[]
 
 export type ModelIdKey = (typeof modelIdKeys)[number]
@@ -592,6 +602,7 @@ export const modelIdKeysByProvider: Record<TypicalProvider, ModelIdKey> = {
 	"io-intelligence": "ioIntelligenceModelId",
 	roo: "apiModelId",
 	"vercel-ai-gateway": "vercelAiGatewayModelId",
+	zenmux: "zenMuxModelId",
 }
 
 /**
@@ -728,4 +739,5 @@ export const MODELS_BY_PROVIDER: Record<
 	// Local providers; models discovered from localhost endpoints.
 	lmstudio: { id: "lmstudio", label: "LM Studio", models: [] },
 	ollama: { id: "ollama", label: "Ollama", models: [] },
+	zenmux: { id: "zenmux", label: "ZenMux", models: [] },
 }

@@ -42,6 +42,7 @@ import {
 	DeepInfraHandler,
 	MiniMaxHandler,
 	BasetenHandler,
+	ZenMuxHandler,
 } from "./providers"
 import { NativeOllamaHandler } from "./providers/native-ollama"
 
@@ -197,6 +198,8 @@ export function buildApiHandler(configuration: ProviderSettings): ApiHandler {
 			return new MiniMaxHandler(options)
 		case "baseten":
 			return new BasetenHandler(options)
+		case "zenmux":
+			return new ZenMuxHandler(options)
 		default:
 			apiProvider satisfies "gemini-cli" | undefined
 			return new AnthropicHandler(options)

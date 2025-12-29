@@ -306,6 +306,8 @@
 		"vertex1MContextBetaDescription": "Amplía la ventana de contexto a 1 millón de tokens para Claude Sonnet 4",
 		"basetenApiKey": "Clave API de Baseten",
 		"getBasetenApiKey": "Obtener clave API de Baseten",
+		"zenMuxApiKey": "Clave API de ZenMux",
+		"getZenMuxApiKey": "Obtener clave API de ZenMux",
 		"cerebrasApiKey": "Clave API de Cerebras",
 		"getCerebrasApiKey": "Obtener clave API de Cerebras",
 		"chutesApiKey": "Clave API de Chutes",

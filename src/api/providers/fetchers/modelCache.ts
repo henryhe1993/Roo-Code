@@ -29,6 +29,7 @@ import { getDeepInfraModels } from "./deepinfra"
 import { getHuggingFaceModels } from "./huggingface"
 import { getRooModels } from "./roo"
 import { getChutesModels } from "./chutes"
+import { getZenMuxModels } from "./zenmux"
 
 const memoryCache = new NodeCache({ stdTTL: 5 * 60, checkperiod: 5 * 60 })
 
@@ -107,6 +108,9 @@ async function fetchModelsFromProvider(options: GetModelsOptions): Promise<Model
 		}
 		case "chutes":
 			models = await getChutesModels(options.apiKey)
+			break
+		case "zenmux":
+			models = await getZenMuxModels(options.baseUrl)
 			break
 		default: {
 			// Ensures router is exhaustively checked if RouterName is a strict union.
@@ -250,6 +254,7 @@ export async function initializeModelCacheRefresh(): Promise<void> {
 			{ provider: "openrouter", options: { provider: "openrouter" } },
 			{ provider: "vercel-ai-gateway", options: { provider: "vercel-ai-gateway" } },
 			{ provider: "chutes", options: { provider: "chutes" } },
+			{ provider: "zenmux", options: { provider: "zenmux" } },
 		]
 
 		// Refresh each provider in background (fire and forget)
