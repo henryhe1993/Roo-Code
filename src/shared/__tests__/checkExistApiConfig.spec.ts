@@ -56,6 +56,7 @@ describe("checkExistKey", () => {
 			vsCodeLmModelSelector: undefined,
 			requestyApiKey: undefined,
 			unboundApiKey: undefined,
+			zenMuxApiKey: undefined,
 		}
 		expect(checkExistKey(config)).toBe(false)
 	})

@@ -84,6 +84,8 @@ describe("webviewMessageHandler - requestRouterModels provider filter", () => {
 					return { "io/model": { contextWindow: 8192, supportsPromptCache: false } }
 				case "litellm":
 					return { "litellm/model": { contextWindow: 8192, supportsPromptCache: false } }
+				case "zenmux":
+					return { "zenmux/model": { contextWindow: 8192, supportsPromptCache: false } }
 				default:
 					return {}
 			}
@@ -139,6 +141,7 @@ describe("webviewMessageHandler - requestRouterModels provider filter", () => {
 		expect(routerModels).toHaveProperty("openrouter")
 		expect(routerModels).toHaveProperty("roo")
 		expect(routerModels).toHaveProperty("requesty")
+		expect(routerModels).toHaveProperty("zenmux")
 	})
 
 	it("supports filtering another single provider ('openrouter')", async () => {

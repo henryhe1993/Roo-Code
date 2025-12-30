@@ -321,6 +321,21 @@ describe("ProfileValidator", () => {
 			expect(ProfileValidator.isProfileAllowed(profile, allowList)).toBe(true)
 		})
 
+		it("should extract zenMuxModelId for zenmux provider", () => {
+			const allowList: OrganizationAllowList = {
+				allowAll: false,
+				providers: {
+					zenmux: { allowAll: false, models: ["zenmux-model"] },
+				},
+			}
+			const profile: ProviderSettings = {
+				apiProvider: "zenmux",
+				zenMuxModelId: "zenmux-model",
+			}
+
+			expect(ProfileValidator.isProfileAllowed(profile, allowList)).toBe(true)
+		})
+
 		it("should handle providers with undefined models list gracefully", () => {
 			const allowList: OrganizationAllowList = {
 				allowAll: false,

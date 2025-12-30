@@ -64,6 +64,7 @@ describe("getApiProtocol", () => {
 			expect(getApiProtocol("openai", "claude-3-sonnet")).toBe("openai")
 			expect(getApiProtocol("litellm", "claude-instant")).toBe("openai")
 			expect(getApiProtocol("ollama", "claude-model")).toBe("openai")
+			expect(getApiProtocol("zenmux", "claude-3-sonnet")).toBe("openai")
 		})
 	})
 

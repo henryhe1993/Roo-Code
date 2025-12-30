@@ -120,6 +120,7 @@ describe("ApiOptions Provider Filtering", () => {
 		expect(providerValues).toContain("anthropic") // static provider
 		expect(providerValues).toContain("openrouter") // dynamic provider
 		expect(providerValues).toContain("ollama") // dynamic provider
+		expect(providerValues).toContain("zenmux") // dynamic provider
 	})
 
 	it("should hide static providers with empty models", () => {
@@ -159,6 +160,7 @@ describe("ApiOptions Provider Filtering", () => {
 		expect(providerValues).toContain("unbound")
 		expect(providerValues).toContain("requesty")
 		expect(providerValues).toContain("io-intelligence")
+		expect(providerValues).toContain("zenmux")
 	})
 
 	it("should filter static providers based on organization allow list", () => {
@@ -175,6 +177,9 @@ describe("ApiOptions Provider Filtering", () => {
 					models: [], // No models allowed
 				},
 				openrouter: {
+					allowAll: true, // Dynamic provider with all models allowed
+				},
+				zenmux: {
 					allowAll: true, // Dynamic provider with all models allowed
 				},
 			},
@@ -200,6 +205,7 @@ describe("ApiOptions Provider Filtering", () => {
 
 		// Should include openrouter (dynamic provider)
 		expect(providerValues).toContain("openrouter")
+		expect(providerValues).toContain("zenmux")
 
 		// Should NOT include providers not in the allow list
 		expect(providerValues).not.toContain("openai-native")

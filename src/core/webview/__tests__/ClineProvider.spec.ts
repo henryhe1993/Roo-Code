@@ -2677,6 +2677,7 @@ describe("ClineProvider - Router Models", () => {
 			baseUrl: "http://localhost:4000",
 		})
 		expect(getModels).toHaveBeenCalledWith({ provider: "chutes" })
+		expect(getModels).toHaveBeenCalledWith({ provider: "zenmux" })
 
 		// Verify response was sent
 		expect(mockPostMessage).toHaveBeenCalledWith({
@@ -2694,6 +2695,7 @@ describe("ClineProvider - Router Models", () => {
 				"vercel-ai-gateway": mockModels,
 				huggingface: {},
 				"io-intelligence": {},
+				zenmux: mockModels,
 			},
 			values: undefined,
 		})
@@ -2710,6 +2712,7 @@ describe("ClineProvider - Router Models", () => {
 				unboundApiKey: "unbound-key",
 				litellmApiKey: "litellm-key",
 				litellmBaseUrl: "http://localhost:4000",
+				zenmuxApiKey: "zenmux-key",
 			},
 		} as any)
 
@@ -2727,6 +2730,7 @@ describe("ClineProvider - Router Models", () => {
 			.mockResolvedValueOnce(mockModels) // deepinfra success
 			.mockResolvedValueOnce(mockModels) // roo success
 			.mockRejectedValueOnce(new Error("Chutes API error")) // chutes fail
+			.mockResolvedValueOnce(mockModels) // zenmux success
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm fail
 
 		await messageHandler({ type: "requestRouterModels" })
@@ -2739,6 +2743,7 @@ describe("ClineProvider - Router Models", () => {
 				openrouter: mockModels,
 				requesty: {},
 				unbound: {},
+				zenmux: mockModels,
 				roo: mockModels,
 				chutes: {},
 				ollama: {},
@@ -2868,6 +2873,7 @@ describe("ClineProvider - Router Models", () => {
 				"vercel-ai-gateway": mockModels,
 				huggingface: {},
 				"io-intelligence": {},
+				zenmux: mockModels,
 			},
 			values: undefined,
 		})

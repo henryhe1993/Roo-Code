@@ -254,6 +254,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 			apiKey: "litellm-key",
 			baseUrl: "http://localhost:4000",
 		})
+		expect(mockGetModels).toHaveBeenCalledWith({ provider: "zenmux" })
 		// Note: huggingface is not fetched in requestRouterModels - it has its own handler
 		// Note: io-intelligence is not fetched because no API key is provided in the mock state
 
@@ -273,6 +274,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 				"vercel-ai-gateway": mockModels,
 				huggingface: {},
 				"io-intelligence": {},
+				zenmux: mockModels,
 			},
 			values: undefined,
 		})
@@ -364,6 +366,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 				"vercel-ai-gateway": mockModels,
 				huggingface: {},
 				"io-intelligence": {},
+				zenmux: mockModels,
 			},
 			values: undefined,
 		})
@@ -388,6 +391,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 			.mockResolvedValueOnce(mockModels) // deepinfra
 			.mockResolvedValueOnce(mockModels) // roo
 			.mockRejectedValueOnce(new Error("Chutes API error")) // chutes
+			.mockRejectedValueOnce(new Error("ZenMux API error")) // zenmux
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm
 
 		await webviewMessageHandler(mockClineProvider, {
@@ -419,6 +423,13 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 		expect(mockClineProvider.postMessageToWebview).toHaveBeenCalledWith({
 			type: "singleRouterModelFetchResponse",
 			success: false,
+			error: "ZenMux API error",
+			values: { provider: "zenmux" },
+		})
+
+		expect(mockClineProvider.postMessageToWebview).toHaveBeenCalledWith({
+			type: "singleRouterModelFetchResponse",
+			success: false,
 			error: "LiteLLM connection failed",
 			values: { provider: "litellm" },
 		})
@@ -439,6 +450,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 				"vercel-ai-gateway": mockModels,
 				huggingface: {},
 				"io-intelligence": {},
+				zenmux: {},
 			},
 			values: undefined,
 		})
@@ -454,6 +466,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 			.mockRejectedValueOnce(new Error("DeepInfra API error")) // deepinfra
 			.mockRejectedValueOnce(new Error("Roo API error")) // roo
 			.mockRejectedValueOnce(new Error("Chutes API error")) // chutes
+			.mockRejectedValueOnce(new Error("ZenMux API error")) // zenmux
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm
 
 		await webviewMessageHandler(mockClineProvider, {
@@ -508,6 +521,13 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 			success: false,
 			error: "Chutes API error",
 			values: { provider: "chutes" },
+		})
+
+		expect(mockClineProvider.postMessageToWebview).toHaveBeenCalledWith({
+			type: "singleRouterModelFetchResponse",
+			success: false,
+			error: "ZenMux API error",
+			values: { provider: "zenmux" },
 		})
 
 		expect(mockClineProvider.postMessageToWebview).toHaveBeenCalledWith({
